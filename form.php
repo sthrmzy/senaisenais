@@ -25,17 +25,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
     function confirmarInsercao() {
-      event.preventDefault();
-
-      var resposta = confirm("Deseja inserir os dados no banco?");
-      if (resposta) {
-        document.getElementById("confirmacao").value= '1';
-        document.getElementById("form-insercao").submit();
-      } else {
-        alert("Inserção cancelada.");
-      }
+        var resposta = confirm("Deseja inserir os dados no banco?");
+        if (resposta) {
+            document.getElementById("confirmacao").value = '1';
+            window.close();
+            return true;
+        } else {
+            alert("Inserção cancelada.");
+            window.close();
+            return false;
+        }
     }
-  </script>
+</script>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +61,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 
 
-<form method="POST" id="form-insercao" onsubmit="confirmarInsercao(event)" value="0">
+<form method="POST" id="form-insercao" onsubmit="return confirmarInsercao(event)" value="0">
     
           <fieldset>
             <div class="nome">
@@ -94,7 +96,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
               </select>
             </div>
             <input type="hidden" name="confirmacao" id="confirmacao" value="0">
-            <button type="submit" name="submit">Registrar</button>
+            <button type="submit" name="submit" onclick="confirmarInsercao()">Registrar</button>
            
         </form>
 
